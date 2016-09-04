@@ -1,0 +1,160 @@
+###[ Ethernet ]###
+  dst       = 52:54:00:12:35:02
+  src       = 08:00:27:61:59:77
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = 08:00:27:61:59:77
+     psrc      = 10.0.2.15
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 10.0.2.2
+None
+###[ Ethernet ]###
+  dst       = 08:00:27:61:59:77
+  src       = 52:54:00:12:35:02
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = 52:54:00:12:35:02
+     psrc      = 10.0.2.2
+     hwdst     = 08:00:27:61:59:77
+     pdst      = 10.0.2.15
+###[ Padding ]###
+        load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+None
+###[ Ethernet ]###
+  dst       = 52:54:00:12:35:02
+  src       = 08:00:27:61:59:77
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = 08:00:27:61:59:77
+     psrc      = 10.0.2.15
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 10.0.2.2
+None
+###[ Ethernet ]###
+  dst       = 08:00:27:61:59:77
+  src       = 52:54:00:12:35:02
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = 52:54:00:12:35:02
+     psrc      = 10.0.2.2
+     hwdst     = 08:00:27:61:59:77
+     pdst      = 10.0.2.15
+###[ Padding ]###
+        load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+None
+###[ Ethernet ]###
+  dst       = 52:54:00:12:35:02
+  src       = 08:00:27:61:59:77
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = 08:00:27:61:59:77
+     psrc      = 10.0.2.15
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 10.0.2.2
+None
+###[ Ethernet ]###
+  dst       = 08:00:27:61:59:77
+  src       = 52:54:00:12:35:02
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = 52:54:00:12:35:02
+     psrc      = 10.0.2.2
+     hwdst     = 08:00:27:61:59:77
+     pdst      = 10.0.2.15
+###[ Padding ]###
+        load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+None
+###[ Ethernet ]###
+  dst       = 52:54:00:12:35:02
+  src       = 08:00:27:61:59:77
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = 08:00:27:61:59:77
+     psrc      = 10.0.2.15
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 10.0.2.2
+None
+###[ Ethernet ]###
+  dst       = 08:00:27:61:59:77
+  src       = 52:54:00:12:35:02
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = 52:54:00:12:35:02
+     psrc      = 10.0.2.2
+     hwdst     = 08:00:27:61:59:77
+     pdst      = 10.0.2.15
+###[ Padding ]###
+        load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+None
+###[ Ethernet ]###
+  dst       = 52:54:00:12:35:02
+  src       = 08:00:27:61:59:77
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = who-has
+     hwsrc     = 08:00:27:61:59:77
+     psrc      = 10.0.2.15
+     hwdst     = 00:00:00:00:00:00
+     pdst      = 10.0.2.2
+None
+###[ Ethernet ]###
+  dst       = 08:00:27:61:59:77
+  src       = 52:54:00:12:35:02
+  type      = 0x806
+###[ ARP ]###
+     hwtype    = 0x1
+     ptype     = 0x800
+     hwlen     = 6
+     plen      = 4
+     op        = is-at
+     hwsrc     = 52:54:00:12:35:02
+     psrc      = 10.0.2.2
+     hwdst     = 08:00:27:61:59:77
+     pdst      = 10.0.2.15
+###[ Padding ]###
+        load      = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+None
