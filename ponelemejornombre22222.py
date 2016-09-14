@@ -4,6 +4,7 @@ from scapy.all import *
 #	print pkt.show()
 
 ruta_archivo = sys.argv[1]
+segundosTimeOut = int(sys.argv[3])
 diccionarioIPorigen={}
 diccionarioIPdestino={}
 diccionarioIPorigenDestino={}
@@ -17,6 +18,7 @@ def clasificar_pkt(pkt):
     global diccionarioIPorigen
     global diccionarioIPdestino
     global diccionarioIPorigenDestino
+    global cantidadDePktsArP
 
     paqueteArpSrc = pkt.psrc
     diccionarioIPorigen[paqueteArpSrc] = diccionarioIPorigen.get(paqueteArpSrc, 0) + 1
@@ -42,7 +44,7 @@ def procesar_fuente (diccionario):
     frecAbsDelSimb = diccionario.get(simb)
     frecRelDelSimb = frecAbsDelSimb / cantidadDePktsArP
 
-    FuenteInformacionSimb[simb] = -log(frecRelDelSimb,2)
+    FuenteInformacionSimb[simb] = log(frecRelDelSimb,2) * (-1)
 
     entropia = entropia + (frecRelDelSimb * log(frecRelDelSimb,2))
   
@@ -100,10 +102,10 @@ if __name__ == '__main__' :
   #aca sniffeo con scapy, y hago cosas
   elif sys.argv[2] == "w" :
     pktdump = PcapWriter(ruta_archivo, append=True, sync=True)
-    sniff(prn = monitor_callback , store = 0)
+    sniff(prn = monitor_callback , store = 0, timeout = segundosTimeOut)
     #manda por parametro tiempo al sniff
 
-    leer_y_procesar_pcap(pktdump)
+    leer_y_procesar_pcap(ruta_archivo)
     #fijate si esto funciona, el archivo esta abierto, podria crashear
 
 
