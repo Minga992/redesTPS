@@ -3,23 +3,11 @@ from scapy.all import *
 #def monitor_callback(pkt):
 #	print pkt.show()
 
-ruta_archivo = sys.argv[1]
-segundosTimeOut = int(sys.argv[3])
-diccionarioIPorigen={}
-diccionarioIPdestino={}
-diccionarioIPorigenDestino={}
-cantidadDePktsArP = 0
-
-def clasificar_pkt(pkt):
+def clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino):
 	#dado un paquete, si es arp, mira su emisor y su receptor, y lo coloca en los diccionarios
 
-
   if (pkt.type == 2054) :
-    global diccionarioIPorigen
-    global diccionarioIPdestino
-    global diccionarioIPorigenDestino
-    global cantidadDePktsArP
-
+    
     paqueteArpSrc = pkt.psrc
     diccionarioIPorigen[paqueteArpSrc] = diccionarioIPorigen.get(paqueteArpSrc, 0) + 1
    
@@ -29,12 +17,10 @@ def clasificar_pkt(pkt):
     paqueteArpSrcDst = paqueteArpSrc+paqueteArpDst
     diccionarioIPorigenDestino[paqueteArpSrcDst] = diccionarioIPorigenDestino.get(paqueteArpSrcDst, 0) + 1
 
-    cantidadDePktsArP = cantidadDePktsArP + 1
-
+    return (diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino)
       
-def procesar_fuente (diccionario):
+def procesar_fuente (diccionario , cantidadDePktsArP):
     
-  global cantidadDePktsArP
   FuenteInformacionSimb= {}
   DiferenciaEntropiaInfoSimb = {}
   entropia = 0
@@ -58,20 +44,14 @@ def procesar_fuente (diccionario):
 
   return (entropia, DiferenciaEntropiaInfoSimb, FuenteInformacionSimb)
 
-def procesar_pkts():
+def procesar_pkts(cantidadDePktsArP,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino):
 		#dado un paquete, lo clasifica en Broad o Uni con lo que esto conlleve y printea la frecuencia relativa hasta el
   	#momento de ambas clasificaciones
 		#datos es tripleta (entropia, DiferenciaEntropiaInfoSimb, FuenteInformacionSimb)
-
-
-  global cantidadDePktsArP
-  global diccionarioIPorigen
-  global diccionarioIPdestino
-  global diccionarioIPorigenDestino
   
-  datosOrigen = procesar_fuente(diccionarioIPorigen)
-  datosDestino = procesar_fuente(diccionarioIPdestino)
-  datosOrigenDestino = procesar_fuente(diccionarioIPorigenDestino)    
+  datosOrigen = procesar_fuente(diccionarioIPorigen. cantidadDePktsArP)
+  datosDestino = procesar_fuente(diccionarioIPdestino, cantidadDePktsArP)
+  datosOrigenDestino = procesar_fuente(diccionarioIPorigenDestino, cantidadDePktsArP)    
 
   return (datosOrigen , datosDestino , datosOrigenDestino)
 
@@ -85,27 +65,37 @@ def monitor_callback(pkt):
   pktdump.write(pkt)
 
     
-def leer_y_procesar_pcap(ruta_archivo):
+def leer_y_procesar_pcap(ruta_archivo , cantidadDePktsArP):
 	#dado un archivo .cap, lee los paquetes que en el se encuentran, y los procesa 1 a 1, con un comportamiento similar a monitar_callback
   lista_pkts = rdpcap(ruta_archivo)
-  for pkt in lista_pkts:
-    clasificar_pkt(pkt)	
+  diccionarioIPorigen={}
+  diccionarioIPdestino={}
+  diccionarioIPorigenDestino={}
 
-  datosFuentes = procesar_pkts()
+  for pkt in lista_pkts:
+    (diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino) = clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino)	
+    cantidadDePktsArP += 1
+
+  datosFuentes = procesar_pkts(cantidadDePktsArP,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino)
   #mandar cada elemento de datos fuentes a un txt distinto acaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 if __name__ == '__main__' :
 	#aca leo y hago cosas
+  cantidadDePktsArP = 0
+  ruta_archivo = sys.argv[1]
+
   if sys.argv[2] == "r" :
-    leer_y_procesar_pcap(ruta_archivo)
+    leer_y_procesar_pcap(ruta_archivo, cantidadDePktsArP)
 
   #aca sniffeo con scapy, y hago cosas
   elif sys.argv[2] == "w" :
+
+    segundosTimeOut = int(sys.argv[3])
     pktdump = PcapWriter(ruta_archivo, append=True, sync=True)
     sniff(prn = monitor_callback , store = 0, timeout = segundosTimeOut)
     #manda por parametro tiempo al sniff
 
-    leer_y_procesar_pcap(ruta_archivo)
+    leer_y_procesar_pcap(ruta_archivo, cantidadDePktsArP)
     #fijate si esto funciona, el archivo esta abierto, podria crashear
 
 
