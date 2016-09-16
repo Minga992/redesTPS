@@ -1,0 +1,8 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{3}{section.1}
+\contentsline {section}{\numberline {2}La gramatica}{3}{section.2}
+\contentsline {section}{\numberline {3}La Soluci\IeC {\'o}n}{4}{section.3}
+\contentsline {section}{\numberline {4}Ejecuci\IeC {\'o}n}{5}{section.4}
+\contentsline {section}{\numberline {5}Casos de Prueba}{6}{section.5}
+\contentsline {section}{\numberline {6}Resultados}{7}{section.6}
+\contentsline {section}{\numberline {7}Conclusiones}{8}{section.7}
