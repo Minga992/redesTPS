@@ -7,16 +7,22 @@ import math
 def clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino):
 	#dado un paquete, si es arp, mira su emisor y su receptor, y lo coloca en los diccionarios
 
-  if (pkt.type == 2054) :
+  try:
+
+    if (pkt.type == 2054) :
+      
+      paqueteArpSrc = pkt.psrc
+      diccionarioIPorigen[paqueteArpSrc] = diccionarioIPorigen.get(paqueteArpSrc, 0) + 1
+     
+      paqueteArpDst = pkt.pdst
+      diccionarioIPdestino[paqueteArpDst] = diccionarioIPdestino.get(paqueteArpDst, 0) + 1
+     
+      paqueteArpSrcDst = paqueteArpSrc+paqueteArpDst
+      diccionarioIPorigenDestino[paqueteArpSrcDst] = diccionarioIPorigenDestino.get(paqueteArpSrcDst, 0) + 1
+
+  except:
     
-    paqueteArpSrc = pkt.psrc
-    diccionarioIPorigen[paqueteArpSrc] = diccionarioIPorigen.get(paqueteArpSrc, 0) + 1
-   
-    paqueteArpDst = pkt.pdst
-    diccionarioIPdestino[paqueteArpDst] = diccionarioIPdestino.get(paqueteArpDst, 0) + 1
-   
-    paqueteArpSrcDst = paqueteArpSrc+paqueteArpDst
-    diccionarioIPorigenDestino[paqueteArpSrcDst] = diccionarioIPorigenDestino.get(paqueteArpSrcDst, 0) + 1
+    print 'No existe la propiedad type'
 
   return diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino
       
