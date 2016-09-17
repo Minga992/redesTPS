@@ -4,7 +4,8 @@ import math
 #def monitor_callback(pkt):
 #	print pkt.show()
 
-def clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino):
+superfrec = 0
+def clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino,cantidadDePktsArP):
 	#dado un paquete, si es arp, mira su emisor y su receptor, y lo coloca en los diccionarios
 
   try:
@@ -19,32 +20,32 @@ def clasificar_pkt(pkt,diccionarioIPorigen , diccionarioIPdestino, diccionarioIP
      
       paqueteArpSrcDst = paqueteArpSrc+paqueteArpDst
       diccionarioIPorigenDestino[paqueteArpSrcDst] = diccionarioIPorigenDestino.get(paqueteArpSrcDst, 0) + 1
-
+      cantidadDePktsArP += 1
   except:
     
     print 'No existe la propiedad type'
 
-  return diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino
+  return diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino, cantidadDePktsArP
       
 def procesar_fuente (diccionario , cantidadDePktsArP):
   #dado un diccionario que tiene informacion sobre una fuente en particular(origen, destino u origendestino), y la cantidad de
   #pkts arp totales, devuelvo la entropia, en un diccionario(simbolo -> numerito) la cantidad de informacion de cada simbolo,
   # y en otro la dif entre la cantidad de info de cada simbolo y la entropia
 
-
+  diccFrecRelSimb= {}
   FuenteInformacionSimb= {}
   DiferenciaEntropiaInfoSimb = {}
   entropia = 0
-
+  global superfrec
   for simb in diccionario.keys() :
 
     frecAbsDelSimb = diccionario.get(simb)
     frecRelDelSimb = frecAbsDelSimb / float(cantidadDePktsArP)
     FuenteInformacionSimb[simb] = (math.log(frecRelDelSimb, 2) )* (-1)
-
     entropia = entropia + (frecRelDelSimb * math.log(frecRelDelSimb,2))
-  
-  entropia = - entropia
+    diccFrecRelSimb[simb] = frecRelDelSimb
+    superfrec += frecRelDelSimb
+  entropia =  entropia * (-1)
 
   for simb in FuenteInformacionSimb.keys() :
 
@@ -52,7 +53,7 @@ def procesar_fuente (diccionario , cantidadDePktsArP):
     #probablemente quiera el valor absoluto de esto
 
 
-  return (entropia, DiferenciaEntropiaInfoSimb, FuenteInformacionSimb)
+  return (entropia, DiferenciaEntropiaInfoSimb, FuenteInformacionSimb, diccFrecRelSimb)
 
 def procesar_pkts(cantidadDePktsArP,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino):
   #Dada la entrada que lees, donde cada diccionario representa una fuente distinta, consigo datos utiles por cada fuente
@@ -82,8 +83,8 @@ def leer_y_procesar_pcap(ruta_archivo , cantidadDePktsArP):
 
 
   for pkt in lista_pkts:
-    diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino = clasificar_pkt(pkt, diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino)	
-    cantidadDePktsArP += 1
+    diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino, cantidadDePktsArP = clasificar_pkt(pkt, diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino, cantidadDePktsArP)	
+
 
   datosOrigen , datosDestino , datosOrigenDestino = procesar_pkts(cantidadDePktsArP,diccionarioIPorigen , diccionarioIPdestino, diccionarioIPorigenDestino)
   
@@ -102,6 +103,7 @@ def imprimir_datos_fuente_txt(tipoFuente, datosFuente) :
   archi.write('Simbolos:' + '\n' + '\n')
   for simb in datosFuente[1].keys():
     archi.write('Simbolo: ' + str(simb) + '\n')
+    archi.write('Probabilidad del simbolo: ' + str(datosFuente[3].get(simb)) + '\n')
     archi.write('Cantidad de informacion: ' + str(datosFuente[2].get(simb) ) + '\n' )
     archi.write('Diferencia informacion/entropia: ' + str(datosFuente[1].get(simb) ) + '\n' + '\n' )
   archi.close()
@@ -115,7 +117,7 @@ if __name__ == '__main__' :
   #aca leo y hago cosas
   if sys.argv[2] == "r" :
     leer_y_procesar_pcap(ruta_archivo, cantidadDePktsArP)
-
+    print str(superfrec)
 
 
   #aca sniffeo con scapy, y hago cosas
