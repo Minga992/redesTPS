@@ -3,26 +3,28 @@ A continuación se presentarán los resultados de los experimentos.
 
 \subsection{Captura de la Facultad}
 
+\subsubsection{Experimento 1:}
+
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/02destino1eraParte.jpg}
   \caption{Cantidad de Información por Símbolo (Destinos) VS Entropía (Parte 1)}
-  \label{fig:ejemplo}
+  \label{fig:1}
 \end{figure}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/02destino2daParte.jpg}
   \caption{Cantidad de Información por Símbolo (Destinos) VS Entropía (Parte 2)}
-  \label{fig:ejemplo}
+  \label{fig:2}
 \end{figure}
 
-En las Figuras 1 y 2, es decir, cuando se tomaron únicamente las direcciones IP de destino en el modelado, se puede ver cómo la mayor parte de los símbolos proveen una gran cantidad de información en contraste con la entropía y también cómo una minoría se destaca por proveer muy poca información. En cambio en las Figuras 3 y 4, donde se consideraron sólo las direcciones origen, si bien ocurre algo similar a lo anterior, es un poco menos acentuada la diferencia.
+En las Figuras \ref{fig:1} y \ref{fig:2} , es decir, cuando se tomaron únicamente las direcciones IP de destino en el modelado, se puede ver cómo la mayor parte de los símbolos proveen una gran cantidad de información en contraste con la entropía y también cómo una minoría se destaca por proveer muy poca información. En cambio en las Figuras \ref{fig:3} y \ref{fig:4}, donde se consideraron sólo las direcciones origen, si bien ocurre algo similar a lo anterior, es un poco menos acentuada la diferencia.
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/02origen1eraParte.jpg}
   \caption{Cantidad de Información por Símbolo (Orígenes) VS Entropía (Parte 1)}
-  \label{fig:ejemplo}
+  \label{fig:3}
 \end{figure}
 
 
@@ -30,7 +32,7 @@ En las Figuras 1 y 2, es decir, cuando se tomaron únicamente las direcciones IP
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/02origen2daParte.jpg}
   \caption{Cantidad de Información por Símbolo (Orígenes) VS Entropía (Parte 2)}
-  \label{fig:ejemplo}
+  \label{fig:4}
 \end{figure}
 
 \newpage
@@ -39,14 +41,14 @@ En las Figuras 1 y 2, es decir, cuando se tomaron únicamente las direcciones IP
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/Probabilidades/02destino1eraParte.jpg}
   \caption{Probabilidad de cada Símbolo (Destinos) VS Entropía (Parte 1)}
-  \label{fig:ejemplo}
+  \label{fig:5}
 \end{figure}
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/Probabilidades/02destino2daParte.jpg}
   \caption{Probabilidad de cada Símbolo (Destinos) VS Entropía (Parte 2)}
-  \label{fig:ejemplo}
+  \label{fig:6}
 \end{figure}
 
 \newpage
@@ -57,39 +59,79 @@ En el caso de las probabilidades por símbolo ocurre algo análogo a lo que pasa
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/Probabilidades/02origen1eraParte.jpg}
   \caption{Probabilidad de cada Símbolo (Orígenes) VS Entropía (Parte 1)}
-  \label{fig:ejemplo}
+  \label{fig:7}
 \end{figure}
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/Probabilidades/02origen2daParte.jpg}
   \caption{Probabilidad de cada Símbolo (Orígenes) VS Entropía (Parte 2)}
-  \label{fig:ejemplo}
+  \label{fig:8}
 \end{figure}
+
+\subsubsection{Experimento 2:}
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{imagenes/graficos/grafos/facultad.png}
-  \caption{Red de conexiones entre nodos}
-  \label{fig:ejemplo}
+  \caption{Red de conexiones entre nodos de la facultad}
+  \label{fig:9}
 \end{figure}
 
-Y ACÁ VA EL CHAMUYO SOBRE EL GRAFO DE LA FACULTAD Y HAY QUE MEJORAR EL CAPTION SEGURO O SACÁRSELO.
+En la Figura \ref{fig:9} Se puede observar como el nodo 29 recibe la mayor cantidad de mensajes. También es notoria la red de mensajes formados, entre otros, por el conjunto de nodos liderados por el 24, 41, 37, 83 y 34.
+
+\subsubsection{Experimento 3: }
+
 
 \newpage
 \subsection{Captura de Starbucks}
+
+\subsubsection{Experimento 1:}
+
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/04destino.jpg}
   \caption{Cantidad de Información por Símbolo (Destinos) VS Entropía}
-  \label{fig:ejemplo}
+  \label{fig:10}
 \end{figure}
 
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/04origen.jpg}
   \caption{Cantidad de Información por Símbolo (Orígenes) VS Entropía}
-  \label{fig:ejemplo}
+  \label{fig:11}
 \end{figure}
 
+El resultado observado en las Figuras \ref{fig:10} y \ref{fig:11} es similar al de la red de la facultad. Es de destacar sin embargo, que la dirección IP 10.254.62.1, aquella que en la Figura \ref{fig:10} muestra la menor cantidad de información, es la dirección del rooter.
+
+\subsubsection{Experimento 2:}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{imagenes/graficos/grafos/starbucks.png}
+  \caption{Red de conexiones entre nodos de Starbucks}
+  \label{fig:12}
+\end{figure}
+
+En la Figura \ref{fig:12} se puede observar como todos los nodos tienen conexión con el nodo 3. Es de resaltar, que el nodo 3 representa al rooter.
+
+\subsubsection{Experimento 3:}
+
+\subsection{Captura del Cyber}
+
+\subsubsection{Experimento 1:}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/06destino.jpg}
+  \caption{Cantidad de Información por Símbolo (Destinos) VS Entropía}
+  \label{fig:13}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.45]{imagenes/graficos/entropiaCantInf/06Origen.jpg}
+  \caption{Cantidad de Información por Símbolo (Orígenes) VS Entropía}
+  \label{fig:14}
+\end{figure}
