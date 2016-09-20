@@ -1,3 +1,17 @@
 \section{Como Correr Programa}
 
-chupenla
+Para correr el programa que analiza los paquetes Ethernet de la red clasificándolos en BROADCAST y UNICAST se debe ejecutar la siguiente línea:\\
+
+$python$ $broadcast.py$ $[ruta$_$archivo]$ $[lectura$_$o$_$escritura]$ $[segundos$_$timeout]$ \\
+
+ruta_archivo - En caso de lectura esta sera la ruta de donde se lea el archivo pcap y en caso de escritura sera la ruta del archivo pcap que se generara.\\
+lectura_o_escritura - Para realizar una lectura de un archivo pcap se debe colocar el valor r y para realizar un sniff y generar un archivo pcap se debe poner w.\\
+segundos_timeout - Tiempo en segundos de la duracion del sniff\\
+\\
+Para correr el programa que analiza los paquetes ARP de la red mirando las direcciones IP se debe ejecutar la siguiente línea:\\
+
+$python$ $simbolos$_$distinguidos.py$ $[ruta$_$archivo]$ $[lectura$_$o$_$escritura]$ $[segundos$_$timeout]$ \\
+
+ruta_archivo - En caso de lectura esta sera la ruta de donde se lea el archivo pcap y en caso de escritura sera la ruta del archivo pcap que se generara.\\
+lectura_o_escritura - Para realizar una lectura de un archivo pcap se debe colocar el valor r y para realizar un sniff y generar un archivo pcap se debe poner w.\\
+segundos_timeout - Tiempo en segundos de la duracion del sniff\\
