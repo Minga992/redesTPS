@@ -1,11 +1,12 @@
 #! / u s r / bin / env python
 from scapy.all import *
+import math
 #def monitor_callback(pkt):
 #	print pkt.show()
 
 total_pkts = 0
 pkts_broad = 0
-archi = open('bradcast_fuente.txt' ,'a')
+archi = open('broadcast.txt' ,'a')
 
 def clasificar_pkt(pkt):
 		#dado un paquete printeo si es broadcast o unicast, pongo su dst , e incremento el contador correspondiente
@@ -13,11 +14,11 @@ def clasificar_pkt(pkt):
   global archi
   if (pkt.dst == "ff:ff:ff:ff:ff:ff") :
     global pkts_broad    
-    archi.write('Broadcast: ' + str(pkt.dst) + '\n')
+    #archi.write('Broadcast: ' + str(pkt.dst) + '\n')
     pkts_broad += 1
     
-  else :
-    archi.write('Unicast: ' + str(pkt.dst) + '\n')
+ # else :
+    #archi.write('Unicast: ' + str(pkt.dst) + '\n')
 
       
 def procesar_pkt(pkt):
@@ -48,8 +49,17 @@ def leer_y_procesar_pcap(ruta_archivo):
   global total_pkts
   global pkts_broad
   global archi
-  archi.write('Frecuencia relativa de paquetes broadcast: '+ str(pkts_broad) + '/' + str(total_pkts) + ' - ' + str(pkts_broad / float(total_pkts)) + '\n')
-  archi.write('Frecuencia relativa de paquetes unicast: ' + str(total_pkts - pkts_broad) + "/" + str(total_pkts) + " - " + str((total_pkts - pkts_broad) / float(total_pkts)) + '\n')
+
+  proba_broadcast = pkts_broad / float(total_pkts)
+  cant_info_broadcast = math.log(proba_broadcast , 2) * (-1)
+  proba_unicast = 1 - proba_broadcast
+  cant_info_unicast = math.log(proba_unicast , 2) * (-1)
+  entropia = (proba_broadcast * cant_info_broadcast) + (proba_unicast * cant_info_unicast)
+
+  archi.write('Informacion paquetes broadcast: ' + str(cant_info_broadcast) + '\n')
+  archi.write('Informacion paquetes unicast: ' + str(cant_info_unicast) + '\n')
+  archi.write('Entropia: ' + str(entropia) + '\n')
+  archi.write('Entropia maxima: 1')
 
 if __name__ == '__main__' :
 	#aca leo y hago cosas
@@ -64,10 +74,18 @@ if __name__ == '__main__' :
     pktdump = PcapWriter(ruta_archivo, append=True, sync=True)
     sniff(prn = monitor_callback , store = 0, timeout = segundosTimeOut)
 
-    
-    archi.write('Frecuencia relativa de paquetes broadcast: '+ str(pkts_broad) + '/' + str(total_pkts) + ' - ' + str(pkts_broad / float(total_pkts)) + '\n')
-    archi.write('Frecuencia relativa de paquetes unicast: ' + str(total_pkts - pkts_broad) + '/' + str(total_pkts) + ' - ' + str((total_pkts - pkts_broad) / float(total_pkts)) + '\n')
+    proba_broadcast = pkts_broad / float(total_pkts)
+    cant_info_broadcast = math.log(proba_broadcast , 2) * (-1)
+    proba_unicast = 1 - proba_broadcast
+    cant_info_unicast = math.log(proba_unicast , 2)
+    entropia = (proba_broadcast * cant_info_broadcast) + (proba_unicast * cant_info_unicast)
 
+    archi.write('Informacion paquetes broadcast: ' + str(cant_info_broadcast) + '\n')
+    archi.write('Informacion paquetes unicast: ' + str(cant_info_unicast) + '\n')
+    archi.write('Entropia: ' + str(entropia) + '\n')
+    archi.write('Entropia maxima: 1')
+
+    
     archi.close()
   #aca alguien metio la pata
   else :
