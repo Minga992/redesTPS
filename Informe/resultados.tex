@@ -18,7 +18,9 @@ A continuación se presentarán los resultados de los experimentos.
   \label{fig:2}
 \end{figure}
 
-En las Figuras \ref{fig:1} y \ref{fig:2} , es decir, cuando se tomaron únicamente las direcciones IP de destino en el modelado, se puede ver cómo la mayor parte de los símbolos proveen una gran cantidad de información en contraste con la entropía y también cómo una minoría se destaca por proveer muy poca información. En cambio en las Figuras \ref{fig:3} y \ref{fig:4}, donde se consideraron sólo las direcciones origen, si bien ocurre algo similar a lo anterior, es un poco menos acentuada la diferencia.
+En las Figuras \ref{fig:1} y \ref{fig:2} , es decir, cuando se tomaron únicamente las direcciones IP de destino en el modelado, se puede ver cómo la mayor parte de los símbolos proveen una gran cantidad de información en contraste con la entropía y también cómo una minoría se destaca por proveer muy poca información. En cambio en las Figuras \ref{fig:3} y \ref{fig:4}, donde se consideraron sólo las direcciones origen, si bien ocurre algo similar a lo anterior, es menos acentuada la diferencia.
+
+Conclusiones del experimento: Podemos observar como de los dos conjuntos de símbolos, aquel que hace referencia a los destinos obtiene dos símbolos claramente distinguidos, mientras que el que referencia a los origenes no tiene ninguno. De aquí surge una primera intuición de que el modelo de simbolos destino parecería favorecer la ocurrencia de símbolos distinguidos.
 
 \begin{figure}[H]
   \centering
@@ -80,6 +82,8 @@ En el caso de las probabilidades por símbolo ocurre algo análogo a lo que pasa
 
 En la Figura \ref{fig:9} Se puede observar como el nodo 29 recibe la mayor cantidad de mensajes. También es notoria la red de mensajes formados, entre otros, por el conjunto de nodos liderados por el 24, 41, 37, 83 y 34.
 
+Conclusiones del experimento: No terminamos de entender que esta sucediendo exactamente en esta red. 
+
 \subsubsection{Experimento 3:}
 \begin{verbatim}
 
@@ -91,6 +95,8 @@ Entropia maxima: 1
 \end{verbatim}
 
 En estos datos se puede observar una entropía cercana a la entropía máxima.
+
+Conclusiones del experimento: si bien la entropía no es máxima, se acerca. Esto significa que hay muchos mensajes broadcast, por lo cual se está preguntando muy a menudo por una dirección.
 
 \newpage
 \subsection{Captura de Starbucks}
@@ -113,6 +119,8 @@ En estos datos se puede observar una entropía cercana a la entropía máxima.
 \end{figure}
 
 El resultado observado en las Figuras \ref{fig:10} y \ref{fig:11} es similar al de la red de la Facultad. Es de destacar sin embargo, que la dirección IP 10.254.62.1, aquella que en la Figura \ref{fig:10} muestra la menor cantidad de información, es la dirección del router.
+
+Conclusiones del experimento: Se observa algo muy similar a la red de la facultad, pero en una red más chica. También refuerza la intuición de los símbolos destino para los nodos distinguidos. En esta experimento, se puede apreciar el rol del router como el default gateway.
 
 \begin{figure}[H]
   \centering
@@ -141,6 +149,8 @@ Lo que se observa en los gráficos de probabilidades, Figuras \ref{fig:12} y \re
 
 En la Figura \ref{fig:14} se puede observar como todos los nodos tienen conexión con el nodo 3. Es de resaltar, que el nodo 3 representa al router.
 
+Conclusiones del experimento: este grafo en forma de estrella, resalta aún más lo visto en el experimento 1 con el router cumpliendo la funcion de default gateway.
+
 \subsubsection{Experimento 3:}
 \begin{verbatim}
 
@@ -153,6 +163,8 @@ Entropia maxima: 1
 
 En estos datos se puede observar una entropía cercana a la entropía máxima.
 
+Conclusiones del experimento: si bien la entropía no es máxima, se acerca. Esto significa que hay muchos mensajes broadcast, por lo cual se está preguntando muy a menudo por una dirección.
+
 \subsection{Captura del Cyber}
 
 \subsubsection{Experimento 1:}
@@ -164,7 +176,9 @@ En estos datos se puede observar una entropía cercana a la entropía máxima.
   \label{fig:15}
 \end{figure}
 
-El resultado observado en las Figuras \ref{fig:15} y \ref{fig:16} es similar al de las redes de la Facultad y Starbucks pero a una escala mucho menor.
+El resultado observado en las Figuras \ref{fig:15} y \ref{fig:16} nos muestran como ambas fuentes tienen muchos símbolos que aportan mucha información, y solo un nodo que aporta poca cantidad.
+
+Conclusiones del experimento: A diferencia de otras redes, se puede observar como ambas fuentes producen un claro símbolo distinguido.
 
 \begin{figure}[H]
   \centering
@@ -200,6 +214,8 @@ Como se puede ver en las Figuras \ref{fig:17} y \ref{fig:18}, las probabilidades
 
 En el grafo de la Figura \ref{fig:19} se puede apreciar que la mayor concentración de enlaces reside en los nodos 11, 1 y 3, con 12, 10 y 8 vecinos cada uno respectivamente, en contraposición con el resto, que tienen a lo sumo 5 vecinos cada uno.
 
+Conclusiones del experimento: No se puede distinguir un nodo en particular. 
+
 \subsubsection{Experimento 3:}
 
 \begin{verbatim}
@@ -212,3 +228,5 @@ Entropia maxima: 1
 \end{verbatim}
 
 En estos datos se puede observar una entropía lejana a la entropía máxima.
+
+Conclusiones del experimento: la entropía es relativamente baja, lo que significa que hay pocos mensajes broadcast. Esto puede deberse a que al estar en un cyber de juegos, hay grandes chances de que las personas que ocupan las maquinas esten jugando en conjunto, y mandando mensajes a los mismos lugares una y otra vez.

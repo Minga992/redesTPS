@@ -7,6 +7,8 @@ $python$ $broadcast.py$ $[ruta$_$archivo]$ $[lectura$_$o$_$escritura]$ $[segundo
 ruta_archivo - En caso de lectura esta sera la ruta de donde se lea el archivo pcap y en caso de escritura sera la ruta del archivo pcap que se generara.\\
 lectura_o_escritura - Para realizar una lectura de un archivo pcap se debe colocar el valor r y para realizar un sniff y generar un archivo pcap se debe poner w.\\
 segundos_timeout - Tiempo en segundos de la duracion del sniff\\
+
+Esto devolvera un txt llamado broadcast.txt que contiene la cantidad de información de ambos símbolos, la entropía y la entropía máxima, información que permite replicar el experimento 3.
 \\
 Para correr el programa que analiza los paquetes ARP de la red mirando las direcciones IP se debe ejecutar la siguiente línea:\\
 
@@ -15,3 +17,16 @@ $python$ $simbolos$_$distinguidos.py$ $[ruta$_$archivo]$ $[lectura$_$o$_$escritu
 ruta_archivo - En caso de lectura esta sera la ruta de donde se lea el archivo pcap y en caso de escritura sera la ruta del archivo pcap que se generara.\\
 lectura_o_escritura - Para realizar una lectura de un archivo pcap se debe colocar el valor r y para realizar un sniff y generar un archivo pcap se debe poner w.\\
 segundos_timeout - Tiempo en segundos de la duracion del sniff\\
+
+Esto devolvera 6 txt:
+
+\begin{itemize}
+	\item ProbabilidadesOrigen.csv, que tiene las probabilidades de cada símbolo con la fuente Origen.
+	\item ProbabilidadesDestino.csv , que tiene las probabilidades de cada símbolo con la fuente Destino. 
+	\item datosOrigen.csv , cuya primer línea es la entropía y el resto la cantidad de información por símbolo de la fuente origen.
+	\item datosDestino.csv , cuya primer línea es la entropía y el resto la cantidad de información por símbolo de la fuente Destino.
+	\item paraHacerGrafos.txt , que devuelve una línea a la cual si se le borra la coma con la que termina, y se inserta ese texto en http://g.ivank.net se genera un grafo.
+	\item tablasIpsNumeros.txt , que dice que numeros representan a cada ip, puesto que el graficador de grafos solo acepta números del 1 a la cantidad de nodos del grafo.
+\end{itemize}
+
+Los primeros 4 csv, se los puede insertar en la página http://www.generadordegraficos.com/graph , en el formato grafico de línea. (Aclaración: aquellos que tienen entropía, esa linea debe ser borrada para importar el archivo, pero su contenido debe ser introducido en Linea de meta).
