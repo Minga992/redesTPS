@@ -10,7 +10,7 @@ def process(hostname):
 	TYPE_ECHO = 8
 
 	# Valor maximo de ttl (si el paquete nunca alcanza el destino puede quedar flotando de por vida sino)
-	MAX_TTLS = 40
+	MAX_TTLS = 30
 	
 	# Por cada ttl enviamos esta cantidad de paquetes ya que las rutas pueden ir variando.
 	# Luego, por cada ttl, nos quedaremos con la ip que mas veces respondio en estas repeticiones
@@ -25,7 +25,11 @@ def process(hostname):
 	# Listado con los saltos que se fueron realizando
 	hops = []
 
-	
+	# Acumulador de rtt, para calcular el rtt del nuevo hop
+	rtt_acum = 0
+
+	print "{0:3s} {1:15s} {2:8s} \t {3:13s}".format("ttl", "ip", "rtt (ms)", "rtt_acum (ms)")
+
 	while(not host_reached and ttl < MAX_TTLS):
 
 		# Diccionario en donde guardamos por cada ip que responde, un listado de los rtt
@@ -74,22 +78,19 @@ def process(hostname):
 				selected_ip = ip
 
 
-		# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y lo metemos en el listado de hops
+		# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y le restamos el rtt acumulado
+		# para saber cual fue el rtt este hop, y lo metemos en el listado de hops
 		# Aclaracion: (ver que onda aca, si para el ttl actual no respondio nadie que deberiamos hacer, 
 		# quizas incrementar el TTL_REPETITIONS ayude, por eso el if, sino selected_ip quedaba en None)
 		if(selected_ip is not None): 
 			rtt_avg = sum(ips_rtts[selected_ip]) / len(ips_rtts[selected_ip])
-			hops.append({"ip": selected_ip, "rtt": rtt_avg}) 
+			rtt = max(0, rtt_avg - rtt_acum)
+			hops.append({"ip": selected_ip, "rtt": rtt})
+			rtt_acum += rtt 
 
-			print "TTL: " + str(ttl)
-			print "ip: " + str(selected_ip) 
-			print "rtts: " + str(ips_rtts[selected_ip])
-			print "avg: " + str(rtt_avg)
+			print "{0:3d} {1:15s} {2:8f} \t {3:8f}".format(ttl, selected_ip, rtt * 1000.0, rtt_acum * 1000.0)
 
 		ttl += 1
-
-	print "\n\nHOPS: "
-	print hops
 
 
 
