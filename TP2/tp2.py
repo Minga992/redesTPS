@@ -76,6 +76,7 @@ def process(hostname):
 		for ip, rtts in ips_rtts.iteritems():
 			if(len(rtts) >= max_responses):
 				selected_ip = ip
+				max_responses = len(rtts)
 
 
 		# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y le restamos el rtt acumulado
