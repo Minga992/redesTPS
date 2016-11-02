@@ -35,8 +35,7 @@ def process(hostname):
 		for repetition in range(TTL_REPETITIONS):
 
 			# Se genera y envia el paquete con el valor actual del ttl
-			packet = IP(dst=hostname, ttl=ttl)/ ICMP()
-			#packet = IP(dst=hostname, ttl=ttl)/ ICMP(type=TYPE_ECHO)
+			packet = IP(dst=hostname, ttl=ttl)/ ICMP(type=TYPE_ECHO)
 			answered, unanswered = sr(packet, timeout=1, verbose=0)
 
 			# Si no respondio nadie no hacemos nada, procesamos el siguiente
@@ -75,6 +74,7 @@ def process(hostname):
 			for ip, rtts in ips_rtts.iteritems():
 				if(len(rtts) >= max_responses):
 					selected_ip = ip
+					max_responses = len(rtts)
 
 
 			# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y le restamos el rtt promedio del
