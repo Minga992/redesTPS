@@ -22,13 +22,10 @@ def process(hostname):
 	# Valor inicial de ttl, arrancamos en 1 y vamos incrementandolo
 	ttl = 1
 
-	# Listado con los saltos que se fueron realizando
-	hops = []
+	# Ultimo rtt promedio calculado, para calcular el rtt del nuevo hop
+	last_rtt_avg = 0
 
-	# Acumulador de rtt, para calcular el rtt del nuevo hop
-	rtt_acum = 0
-
-	print "{0:3s} {1:15s} {2:8s} \t {3:13s}".format("ttl", "ip", "rtt (ms)", "rtt_acum (ms)")
+	print "{0:3s} {1:15s} {2:8s}".format("ttl", "ip", "rtt (ms)")
 
 	while(not host_reached and ttl < MAX_TTLS):
 
@@ -38,7 +35,8 @@ def process(hostname):
 		for repetition in range(TTL_REPETITIONS):
 
 			# Se genera y envia el paquete con el valor actual del ttl
-			packet = IP(dst=hostname, ttl=ttl)/ ICMP(type=TYPE_ECHO)
+			packet = IP(dst=hostname, ttl=ttl)/ ICMP()
+			#packet = IP(dst=hostname, ttl=ttl)/ ICMP(type=TYPE_ECHO)
 			answered, unanswered = sr(packet, timeout=1, verbose=0)
 
 			# Si no respondio nadie no hacemos nada, procesamos el siguiente
@@ -68,27 +66,24 @@ def process(hostname):
 				host_reached = True
 
 
-		# Como la idea consiste en quedarse, para cada valor del ttl, con la ip que mas veces respondio, 
-		# recorremos el diccionario y nos quedamos con esa ip
-		max_responses = 0
-		selected_ip = None
+		if ips_rtts:
+			# Como la idea consiste en quedarse, para cada valor del ttl, con la ip que mas veces respondio, 
+			# recorremos el diccionario y nos quedamos con esa ip
+			max_responses = 0
+			selected_ip = None
 
-		for ip, rtts in ips_rtts.iteritems():
-			if(len(rtts) >= max_responses):
-				selected_ip = ip
+			for ip, rtts in ips_rtts.iteritems():
+				if(len(rtts) >= max_responses):
+					selected_ip = ip
 
 
-		# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y le restamos el rtt acumulado
-		# para saber cual fue el rtt este hop, y lo metemos en el listado de hops
-		# Aclaracion: (ver que onda aca, si para el ttl actual no respondio nadie que deberiamos hacer, 
-		# quizas incrementar el TTL_REPETITIONS ayude, por eso el if, sino selected_ip quedaba en None)
-		if(selected_ip is not None): 
+			# Luego, para la ip que mas veces respondio, calculamos el rtt promedio y le restamos el rtt promedio del
+			# ttl (con respuesta) anterior para saber cual fue el rtt este rtt_hop
 			rtt_avg = sum(ips_rtts[selected_ip]) / len(ips_rtts[selected_ip])
-			rtt = max(0, rtt_avg - rtt_acum)
-			hops.append({"ip": selected_ip, "rtt": rtt})
-			rtt_acum += rtt 
+			rtt_hop = max(0, rtt_avg - last_rtt_avg)
+			last_rtt_avg = rtt_avg
 
-			print "{0:3d} {1:15s} {2:8f} \t {3:8f}".format(ttl, selected_ip, rtt * 1000.0, rtt_acum * 1000.0)
+			print "{0} {1} {2:f}".format(ttl, selected_ip, rtt_hop * 1000.0)
 
 		ttl += 1
 
@@ -99,19 +94,3 @@ if __name__ == '__main__':
 		print "debe pasar el hostname como parametro"
 	else:
 		process(sys.argv[1])
-
-
-
-# Si bien queda en el repo, dejo por las dudas comentado el codigo que ya estaba
-#from scapy.all import *
-#import math
-#
-#for x in xrange(1,30):
-#	print "x es " + str(x) + "\n"
-#	pkt = IP(dst='www.google.com', ttl=x) / ICMP()
-#	res = srloop(pkt , count = 5, timeout = 4)
-#	res[0][ICMP].display()
-#	res[0][ICMP].display()
-# 0000 IP / ICMP 192.168.0.105 > 173.194.42.211
-# echo-request 0 ==> IP / ICMP 173.194.42.211 > 192.168.0.105
-# echo-reply 0
