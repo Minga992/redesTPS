@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import sys
 from scapy.all import *
@@ -10,11 +11,11 @@ def process(hostname):
 	TYPE_ECHO = 8
 
 	# Valor maximo de ttl (si el paquete nunca alcanza el destino puede quedar flotando de por vida sino)
-	MAX_TTLS = 30
+	MAX_TTLS = sys.argv[2]
 	
 	# Por cada ttl enviamos esta cantidad de paquetes ya que las rutas pueden ir variando.
 	# Luego, por cada ttl, nos quedaremos con la ip que mas veces respondio en estas repeticiones
-	TTL_REPETITIONS = 5
+	TTL_REPETITIONS = sys.argv[3]
 
 	# Booleano para determinar si ya alcanzamos el destino, en tal caso dejamos de procesar
 	host_reached = False
@@ -90,7 +91,7 @@ def process(hostname):
 
 
 if __name__ == '__main__':
-	if(len(sys.argv) != 2):
-		print "debe pasar el hostname como parametro"
+	if(len(sys.argv) != 4):
+		print "La cantidad de parámetros es incorrecta: \n python tp2.py -hostname -max_ttls -ttl_repetitions \n hostname: es la dirección o la IP del host al cual se intenta hacer Traceroute.\n max_ttls: es la cantidad máxima de TTLs hasta la que se va a llegar a probar.\n ttl_repetitions: es la cantidad de paquetes que se enviarán en ráfaga para cada TTL que se pruebe."
 	else:
 		process(sys.argv[1])
