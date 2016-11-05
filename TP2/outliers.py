@@ -20,6 +20,9 @@ def find_outliers(hops):
 	outliers = []
 	find_more = True
 
+	# Me quedo con los Hops cuyo RTT no sea 0
+	hops = filter(lambda hop: hop.rtt != 0, hops)
+
 	while find_more:
 
 		n = len(hops)
@@ -38,7 +41,7 @@ def find_outliers(hops):
 
 		tS = thompson[n] * standard_deviation
 
-		if(max_delta < tS):
+		if(max_delta <= tS):
 			# No hay mas outliers
 			find_more = False
 		else:
