@@ -69,7 +69,6 @@ def process(hostname, max_ttls, ttl_repetitions):
 			if(response.type == TYPE_ECHO_REPLY):
 				host_reached = True
 				selected_ip = response.src
-				break
 
 
 		if ips_rtts:
@@ -86,7 +85,8 @@ def process(hostname, max_ttls, ttl_repetitions):
 						max_responses = len(rtts)
 
 
-			# Luego, para la ip que más veces respondió, calculamos el rtt promedio y le restamos el rtt promedio del
+			# Luego, para la ip que más veces respondió o para la ip destino en caso de haberlo alcanzado, 
+			# calculamos el rtt promedio y le restamos el rtt promedio del
 			# ttl (con respuesta) anterior para saber cuál fue el rtt este rtt_hop
 			rtt_avg = sum(ips_rtts[selected_ip]) / len(ips_rtts[selected_ip])
 			rtt_hop = max(0, rtt_avg - last_rtt_avg)
