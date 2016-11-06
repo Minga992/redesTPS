@@ -20,9 +20,6 @@ def find_outliers(hops):
 	outliers = []
 	find_more = True
 
-	# Me quedo con los Hops cuyo RTT no sea 0
-	hops = filter(lambda hop: hop.rtt != 0, hops)
-
 	while find_more:
 
 		n = len(hops)
@@ -58,7 +55,7 @@ def parse_input_file(filename):
 	hops = []
 	with open(filename, 'rb') as csvfile:
 		next(csvfile, None)
-		reader = csv.reader(csvfile, delimiter=' ')
+		reader = csv.reader(csvfile, delimiter='\t')
 		for row in reader:
 			hop = Hop()
 			hop.ttl = int(row[0])
