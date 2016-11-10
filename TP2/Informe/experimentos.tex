@@ -1,0 +1,12 @@
+\section{Experimentos}
+
+Se realizará básicamente el mismo experimento sobre las páginas de 4 universidades:
+
+\begin{itemize}
+	\item Universidad 1 (Pais, Ciudad,Pagina,algunOtroDatoRelevante)
+	\item Universidad 2 (Pais, Ciudad,Pagina,algunOtroDatoRelevante)
+	\item Universidad 3 (Pais, Ciudad,Pagina,algunOtroDatoRelevante)
+	\item Universidad 4 (Pais, Ciudad,Pagina,algunOtroDatoRelevante)
+\end{itemize}
+
+ El experimento consiste en realizar un traceroute mediante el envío de sucesivos paquetes con TTLs incrementales con destino la página de alguna universidad, calculando los RTTs entre cada salto para los que se reciba una respuesta ICMP de tipo Time exceeded. Luego, con esta información, se aplicará el método de Cimbala para observar que saltos este método reconoce como intercontinentales(son considerados outliers). Luego, se analizarán estos datos de manera tal que se puedan contrastar los resultados obtenidos por Cimbala con la realidad. 

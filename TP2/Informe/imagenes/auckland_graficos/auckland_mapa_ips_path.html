@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polylines</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+// This example creates a 2-pixel-wide red polyline showing the path of William
+// Kingsford Smith's first trans-Pacific flight between Oakland, CA, and
+// Brisbane, Australia.
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+
+
+  //ACÁ PONER ARREGLO DE COORDENADAS
+  var ipsCoords = [{"lat": -34.6033, "lng": -58.3816}, {"lat": -34.6033, "lng": -58.3816}, {"lat": -34.6033, "lng": -58.3816}, {"lat": -34.6033, "lng": -58.3816}, {"lat": 40.7357, "lng": -74.1724}, {"lat": 40.7128, "lng": -74.0059}, {"lat": 40.7128, "lng": -74.0059}, {"lat": 40.7357, "lng": -74.1724}, {"lat": 40.7357, "lng": -74.1724}, {"lat": 40.7128, "lng": -74.0059}, {"lat": 39.7376, "lng": -104.985}, {"lat": 34.0522, "lng": -118.244}, {"lat": 40.7128, "lng": -74.0059}, {"lat": 34.0522, "lng": -118.244}, {"lat": -32, "lng": 115.7667}, {"lat": -33.7333, "lng": 151}, {"lat": -41.2942, "lng": 174.7831}, {"lat": -41.2942, "lng": 174.7831}];
+  //ACÁ PONER ARREGLO DE COORDENADAS
+
+
+  var lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+    scale: 2,
+    strokeColor: '#393'
+  };
+
+  var ipsPath = new google.maps.Polyline({
+    path: ipsCoords,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+    icons: [{
+      icon: lineSymbol,
+      offset: '100%'
+    }]
+  });
+
+  var bounds = new google.maps.LatLngBounds();
+
+  for (var i = 0; i < ipsCoords.length; i++) {
+    
+    var marker = new google.maps.Marker({
+      position: ipsCoords[i],
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 3
+      },
+      draggable: false,
+      map: map
+    });
+
+    bounds.extend(ipsCoords[i]);
+
+  }
+
+  ipsPath.setMap(map);
+
+  map.fitBounds(bounds);
+
+  animateCircle(ipsPath);
+
+  // Use the DOM setInterval() function to change the offset of the symbol
+  // at fixed intervals.
+  function animateCircle(line) {
+      var count = 0;
+      window.setInterval(function() {
+        count = (count + 1) % 500;
+
+        var icons = line.get('icons');
+        icons[0].offset = (count / 5) + '%';
+        line.set('icons', icons);
+    }, 20);
+  }
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
+  </body>
+</html>
