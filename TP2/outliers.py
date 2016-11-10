@@ -14,20 +14,36 @@ class Hop:
 	ip = ""
 	rtt = 0.0
 	delta = 0.0
+	standarized_rtt = 0.0
+
+
+def metrics(hops):
+	n = len(hops)
+	average = sum(map(lambda hop: hop.rtt, hops)) / n
+	variance = sum(map(lambda hop: pow(hop.rtt - average, 2), hops)) / n
+	standard_deviation = math.sqrt(variance)
+	return average, variance, standard_deviation
+
+
+def standardize(hops):
+	average, variance, standard_deviation = metrics(hops)
+	for hop in hops:
+		hop.standarized_rtt = abs(hop.rtt - average) / standard_deviation
+	return hops
+
 
 def find_outliers(hops):
 	
 	outliers = []
 	find_more = True
 
+	# Me quedo con los Hops cuyo RTT no sea 0
+	# hops = filter(lambda hop: hop.rtt != 0, hops)
+
 	while find_more:
 
-		n = len(hops)
-
 		# Calculamos promedio y desvio standard para los hops que quedan
-		average = sum(map(lambda hop: hop.rtt, hops)) / n
-		variance = sum(map(lambda hop: pow(hop.rtt - average, 2), hops)) / n
-		standard_deviation = math.sqrt(variance)
+		average, variance, standard_deviation = metrics(hops)
 
 		# Calculamos los delta_i
 		for hop in hops:
@@ -36,7 +52,7 @@ def find_outliers(hops):
 		# Buscamos el mayor delta, es el primer potencial outlier
 		max_delta = max(map(lambda hop: hop.delta, hops))
 
-		tS = thompson[n] * standard_deviation
+		tS = thompson[len(hops)] * standard_deviation
 
 		if(max_delta <= tS):
 			# No hay mas outliers
@@ -70,9 +86,11 @@ if __name__ == '__main__':
 		print "debe pasar el nombre del archivo de entrada como parametro"
 	else:
 		hops = parse_input_file(sys.argv[1])
+		hops = standardize(hops)
 		outliers = find_outliers(hops)
 
 		print "TRACEROUTE: "
+		print "{0:15s}\t{1:18s}\t{2:18s}\t{3}".format("IP", "RTT", "STANDARIZED RTT", "OUTLIERS")
 		rtts_outliers = map(lambda outlier: outlier.rtt, outliers)
 		for hop in hops:
-			print "{0}\t{1}\t{2}".format(hop.ip, hop.rtt, "[outlier]" if(hop.rtt in rtts_outliers) else "")
+			print "{0}\t{1:4.14f}\t{2:4.14f}\t{3}".format(hop.ip, hop.rtt, hop.standarized_rtt, "[outlier]" if(hop.rtt in rtts_outliers) else "")
