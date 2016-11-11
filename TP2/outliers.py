@@ -89,7 +89,6 @@ if __name__ == '__main__':
 		hops = standardize(hops)
 		outliers = find_outliers(hops)
 
-		print "TRACEROUTE: "
 		print "{0:15s}\t{1:18s}\t{2:18s}\t{3}".format("IP", "RTT", "STANDARIZED RTT", "OUTLIERS")
 		rtts_outliers = map(lambda outlier: outlier.rtt, outliers)
 		for hop in hops:
