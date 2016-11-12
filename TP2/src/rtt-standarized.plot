@@ -10,7 +10,7 @@ set style fill solid border -1
 set boxwidth 0.9
 
 # Rangos y Labels
-set yrange [0:3]
+set yrange [0:3.65]
 set ylabel "HOP RTT standarized (ms)"
 set xlabel "HOP (TTL) IP"
 set ytics 0.2

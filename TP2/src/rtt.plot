@@ -10,10 +10,10 @@ set style fill solid border -1
 set boxwidth 0.9
 
 # Rangos y Labels
-set yrange [0:130]
+set yrange [0:180]
 set ylabel "HOP RTT (ms)"
 set xlabel "HOP (TTL) IP"
-set ytics 5 font"courier,11"
+set ytics 10 font"courier,11"
 set xtics 1 rotate by -90
 
 set datafile separator "\t"
