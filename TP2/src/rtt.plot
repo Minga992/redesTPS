@@ -10,11 +10,11 @@ set style fill solid border -1
 set boxwidth 0.9
 
 # Rangos y Labels
-set yrange [0:150]
+set yrange [0:130]
 set ylabel "HOP RTT (ms)"
-set xlabel "Hop IP"
-set ytics 5
+set xlabel "HOP (TTL) IP"
+set ytics 5 font"courier,11"
 set xtics 1 rotate by -90
 
 set datafile separator "\t"
-plot filename using 2:xticlabels(1) notitle with linespoints pt 7 ps 1
+plot filename using 3:xticlabels('('.stringcolumn(1).') '.stringcolumn(2)) notitle with linespoints pt 7 ps 1
