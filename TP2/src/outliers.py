@@ -38,7 +38,7 @@ def find_outliers(hops):
 	find_more = True
 
 	# Me quedo con los Hops cuyo RTT no sea 0
-	# hops = filter(lambda hop: hop.rtt != 0, hops)
+	hops = filter(lambda hop: hop.rtt != 0, hops)
 
 	while find_more:
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 		hops = standardize(hops)
 		outliers = find_outliers(hops)
 
-		print "{0:15s}\t{1:18s}\t{2:18s}\t{3}".format("IP", "RTT", "STANDARIZED RTT", "OUTLIERS")
+		print "{0:3s}\t{1:15s}\t{2:18s}\t{3:18s}\t{4}".format("TTL", "IP", "RTT", "STANDARIZED RTT", "OUTLIERS")
 		rtts_outliers = map(lambda outlier: outlier.rtt, outliers)
 		for hop in hops:
-			print "{0}\t{1:4.14f}\t{2:4.14f}\t{3}".format(hop.ip, hop.rtt, hop.standarized_rtt, "[outlier]" if(hop.rtt in rtts_outliers) else "")
+			print "{0:3d}\t{1}\t{2:4.14f}\t{3:4.14f}\t{4}".format(hop.ttl, hop.ip, hop.rtt, hop.standarized_rtt, "[outlier]" if(hop.rtt in rtts_outliers) else "")
