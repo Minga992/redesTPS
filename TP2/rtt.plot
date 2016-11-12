@@ -17,4 +17,4 @@ set ytics 10
 set xtics 1 rotate by -90
 
 set datafile separator "\t"
-plot filename using 2:xticlabels(1) notitle
+plot filename using 2:xticlabels(1) notitle with linespoints pt 7 ps 1
