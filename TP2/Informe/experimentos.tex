@@ -1,6 +1,35 @@
 \section{Experimentos}
 
 \subsection{Explicación}
+
+A lo largo de este trabajo realizaremos un experimento que consiste en ejecutar una implementación propia del traceroute sobre varios casos de estudio y poder analizar así como se va armando la ruta y que es lo que sucede en cada salto, tratando de detectar factores como por ejemplo los saltos intercontinentales.
+
+Para poder llevar esto a cabo desarrollamos una primera herramienta, $tp2.py$, con la cual podemos realizar un traceroute a cualquier $IP$ o $URL$. \\
+En la implementación utilizamos la librería $scapy$ que nos permite crear, enviar y analizar paquetes. \\
+Con el objetivo de obtener información de cada salto, generamos y envíamos un paquete de tipo $ECHO$ incrementando el $TTL (Time\ To\ Live)$ desde 1 hasta alcanzar el destino solicitado o un máximo configurable. Las posibles respuestas que podemos tener para este paquete enviado son las siguientes:
+\begin{itemize}
+	\item $ECHO\ REPLY:$ El paquete llegó a destino. 
+	\item $TIME\ EXCEEDED:$ Se realizaron tantos saltos como el $TTL$ configurado y aún no se pudo alcanzar el destino.
+	\item Sin respuesta: En algunos casos directamente no recibiremos respuesta para un paquete enviado, por lo que luego de cierto $timeout$ diremos que no hemos obtenido respuesta. Esto se puede deber a que, entre otras cosas, es posible configurar un router para que no responda este tipo de paquetes y de esta forma se reduzca el tráfico en la red.
+\end{itemize}
+
+Como bien sabemos, para poder realizar un traceroute, debemos determinar mediante algún criterio un nodo para cada salto y el tiempo que implicó dicho hop.
+Veamos entonces los criterios establecidos en nuestra implementación:
+\begin{itemize}
+	\item Elección del nodo en cada salto: Para cada $TTL$ decidimos envíar una ráfaga de paquetes y analizar sus respuestas. En caso de recibir al menos una respuesta de tipo $ECHO\ REPLY$ quiere decir que hemos alcanzado el destino, por tal motivo el nodo seleccionado será ese. \\
+Por otro lado, si aún no hemos alcanzado el destino, seleccionaremos al nodo que más veces respondió $TIME\ EXCEEDED$ para el presente $TTL$.\\
+Por último, puede presentarse el caso en donde no recibamos respuesta, en dicha situación simplemente continuaremos iterando sin analizar comportamiento alguno. \\
+Cabe destacar que en nuestra implementación, la cantidad de paquetes a enviar por ráfaga es configurable.
+	\item Cálculo del tiempo del salto: Una vez seleccionada la $IP$ del salto, ya sea por haber alcanzado el destino o por habernos quedado con la que más veces respondió, debemos establecer el tiempo que implicó realizar dicho hop. Para esto, simplemente promediamos los $RTT (Round\ Trip\ Time)$ del nodo seleccionado y restamos dicho valor al $RTT$ promedio del salto anterior. Notar que, dado que el paquete envíado puede tomar distintos caminos en cada emisión, este tiempo puede resultar negativo. En dicho caso diremos que el tiempo de ese salto es 0.
+\end{itemize}
+
+
+Una vez que obtuvimos el traceroute, y para poder analizar los saltos intercontinentales, desarrollamos otra herramienta llamada $outliers.py$. \\
+En la misma, tomando como input la salida de la aplicación anterior, intentamos reconocer dichos saltos aplicando el método de detección de outliers de Cimbala. 
+
+\newpage
+
+
 Se realizará básicamente el mismo experimento sobre las páginas de 4 universidades:
 
 \begin{itemize}
@@ -34,8 +63,8 @@ Se realizará básicamente el mismo experimento sobre las páginas de 4 universi
 
 \end{itemize}
 
- El experimento consiste en realizar un traceroute mediante el envío de sucesivos paquetes con TTLs incrementales con destino la página de alguna universidad, calculando los RTTs entre cada salto para los que se reciba una respuesta ICMP de tipo Time exceeded. Luego, con esta información, se aplicará el método de Cimbala para observar que saltos este método reconoce como intercontinentales(son considerados outliers). Luego, se analizarán estos datos de manera tal que se puedan contrastar los resultados obtenidos por Cimbala con la realidad.
 
 \subsection{Consideraciones}
 
-TENGO LA DUDA MENTAL DE SI EXPLICAR LO DE LOS CEROS ACA, O EN RESULTADOS, QUE OPINAN.
+TENGO LA DUDA MENTAL DE SI EXPLICAR LO DE LOS CEROS ACA, O EN RESULTADOS, QUE OPINAN. 
+YO LO PONDRÍA EN LAS CONCLUSIONES O POR AHÍ, POR AHORA SOLO DESCRIBAMOS QUE HICIMOS MÁS A GRANDES RASGOS PARA MI.
