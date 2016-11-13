@@ -25,7 +25,7 @@ def geoloc_ips(ips):
 
 	coords = []
 
-	for ip in ips:
+	for ip, ttl in ips.iteritems():
 		
 		url = 'http://ip-api.com/json/' + ip
 		response = urlopen(url)
@@ -36,20 +36,20 @@ def geoloc_ips(ips):
 			lat=data['lat']
 			lon=data['lon']
 
-			latLon = {"lat": lat, "lng": lon}
+			latLon = {"lat": lat, "lng": lon, "ttl": ttl}
 
 			coords.append(latLon)
 
 	return coords
 
 def parse_input_file(filename):
-	ips = []
+	ips = {}
 	with open(filename, 'rb') as csvfile:
 		next(csvfile, None)
 		reader = csv.reader(csvfile, delimiter='\t')
 		for row in reader:
 			ip = row[1]
-			ips.append(ip)
+			ips[ip] = row[0]
 	return ips
 
 if __name__ == '__main__':

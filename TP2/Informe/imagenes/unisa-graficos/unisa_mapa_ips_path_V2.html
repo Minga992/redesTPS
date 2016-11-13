@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polylines</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+
+
+  //ACÁ PONER ARREGLO DE COORDENADAS
+  var ipsCoords = [{"lat": -34.6033, "lng": -58.3816, "ttl": "6"}, {"lat": 33.749, "lng": -84.388, "ttl": "15"}, {"lat": 25.7617, "lng": -80.1918, "ttl": "13"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "25"}, {"lat": 51.5074, "lng": -0.127758, "ttl": "19"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "26"}, {"lat": 25.7891, "lng": -80.204, "ttl": "11"}, {"lat": 25.7617, "lng": -80.1918, "ttl": "14"}, {"lat": 51.5074, "lng": -0.127758, "ttl": "18"}, {"lat": -34.6033, "lng": -58.3816, "ttl": "8"}, {"lat": 51.5142, "lng": -0.0931, "ttl": "20"}, {"lat": 37.3382, "lng": -121.886, "ttl": "12"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "22"}, {"lat": 41.8646, "lng": 12.4966, "ttl": "9"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "27"}, {"lat": 51.5074, "lng": -0.127758, "ttl": "17"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "24"}, {"lat": -34.6033, "lng": -58.3816, "ttl": "7"}, {"lat": 38.9072, "lng": -77.0369, "ttl": "16"}, {"lat": -25.7069, "lng": 28.2294, "ttl": "23"}, {"lat": -34.0037, "lng": 18.4675, "ttl": "21"}];
+  //ACÁ PONER ARREGLO DE COORDENADAS
+
+
+  var lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+    scale: 2,
+    strokeColor: '#393'
+  };
+
+  var bounds = new google.maps.LatLngBounds();
+
+  for (var i = 1; i < ipsCoords.length; i++) {
+
+    var ipsPath = new google.maps.Polyline({
+    	path: [ipsCoords[i-1], ipsCoords[i]],
+    	geodesic: true,
+    	strokeColor: '#FF0000',
+    	strokeOpacity: 1.0,
+    	strokeWeight: 2,
+    	icons: [{
+    	  icon: lineSymbol,
+    	  offset: '100%'
+    	}]
+    });
+
+    ipsPath.setMap(map);
+
+    animateCircle(ipsPath);
+
+    var marker = new google.maps.Marker({
+      position: ipsCoords[i],
+      /*icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 3
+      },*/
+      label: ipsCoords[i].ttl,
+      draggable: false,
+      map: map
+    });
+
+    bounds.extend(ipsCoords[i]);
+
+  }
+
+  map.fitBounds(bounds);
+
+
+  // Use the DOM setInterval() function to change the offset of the symbol
+  // at fixed intervals.
+  function animateCircle(line) {
+      var count = 0;
+      window.setInterval(function() {
+        count = (count + 1) % 500;
+
+        var icons = line.get('icons');
+        icons[0].offset = (count / 5) + '%';
+        line.set('icons', icons);
+    }, 20);
+  }
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script>
+  </body>
+</html>
