@@ -20,7 +20,7 @@ Veamos entonces los criterios establecidos en nuestra implementación:
 Por otro lado, si aún no hemos alcanzado el destino, seleccionaremos al nodo que más veces respondió $TIME\ EXCEEDED$ para el presente $TTL$.\\
 Por último, puede presentarse el caso en donde no recibamos respuesta, en dicha situación simplemente continuaremos iterando sin analizar comportamiento alguno. \\
 Cabe destacar que en nuestra implementación, la cantidad de paquetes a enviar por ráfaga es configurable.
-	\item Cálculo del tiempo del salto: Una vez seleccionada la $IP$ del salto, ya sea por haber alcanzado el destino o por habernos quedado con la que más veces respondió, debemos establecer el tiempo que implicó realizar dicho hop. Para esto, simplemente promediamos los $RTT (Round\ Trip\ Time)$ del nodo seleccionado y restamos dicho valor al $RTT$ promedio del salto anterior. Notar que, dado que el paquete envíado puede tomar distintos caminos en cada emisión, este tiempo puede resultar negativo. En dicho caso diremos que el tiempo de ese salto es 0.
+	\item Cálculo del tiempo del salto: Una vez seleccionada la $IP$ del salto, ya sea por haber alcanzado el destino o por habernos quedado con la que más veces respondió, debemos establecer el tiempo que implicó realizar dicho hop. Para esto, simplemente promediamos los $RTT (Round\ Trip\ Time)$ del nodo seleccionado y restamos dicho valor al $RTT$ promedio del salto anterior. Notar que esta resta podría resultar en un número negativo, en dicho caso diremos que el salto demoró 0ms dado que carecería de sentido decir que el salto se realizó en un tiempo negativo. A lo largo del trabajo analizaremos el por qué de la aparición de dichos valores.
 \end{itemize}
 
 
@@ -33,13 +33,6 @@ En la misma, tomando como input la salida de la aplicación anterior, intentamos
 Se realizará básicamente el mismo experimento sobre las páginas de 4 universidades:
 
 \begin{itemize}
-	\item Universidad de Sudáfrica (UNISA)
-	
-	\begin{itemize}
-		\item Localización: Sudafrica, Pretoria
-		\item Página: www.unisa.ac.za
-	\end{itemize}
-		 
 	\item Oxford
 	
 	\begin{itemize}
@@ -47,6 +40,13 @@ Se realizará básicamente el mismo experimento sobre las páginas de 4 universi
 		\item Página: www.ox.ac.uk
 	\end{itemize}
 
+	\item Universidad de Sudáfrica (UNISA)
+	
+	\begin{itemize}
+		\item Localización: Sudafrica, Pretoria
+		\item Página: www.unisa.ac.za
+	\end{itemize}
+		 
 	\item Auckland
 	 
 	\begin{itemize}

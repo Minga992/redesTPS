@@ -3,6 +3,9 @@
 import math
 import sys
 import csv
+import re
+import json
+from urllib2 import urlopen
 
 thompson = [0, 0, 0, 1.1511, 1.4250, 1.5712, 1.6563, 1.7110, 1.7491, 1.7770, 1.7984, 1.8153, 1.8290, 1.8403, 1.8498, 1.8579, 1.8649, 1.8710, 1.8764, 1.8811, 1.8853, 1.8891, 1.8926, 1.8957, 1.8985, 1.9011, 1.9035, 1.9057, 1.9078, 1.9096, 1.9114]
 
@@ -15,7 +18,20 @@ class Hop:
 	rtt = 0.0
 	delta = 0.0
 	standarized_rtt = 0.0
+	location = None
 
+def geoloc_ips(hops):
+
+	for hop in hops:
+		
+		url = 'http://ip-api.com/json/' + hop.ip
+		response = urlopen(url)
+		data = json.load(response)
+
+		if (data['status'] == 'success'):
+			hop.location = data
+
+	return hops
 
 def metrics(hops):
 	n = len(hops)
@@ -86,10 +102,11 @@ if __name__ == '__main__':
 		print "debe pasar el nombre del archivo de entrada como parametro"
 	else:
 		hops = parse_input_file(sys.argv[1])
+		hops = geoloc_ips(hops)
 		hops = standardize(hops)
 		outliers = find_outliers(hops)
 
-		print "{0:3s}\t{1:15s}\t{2:18s}\t{3:18s}\t{4}".format("TTL", "IP", "RTT", "STANDARIZED RTT", "OUTLIERS")
+		print "{0:3s}\t{1:15s}\t{2:10s}\t{3:10s}\t{4:20s}\t{5}".format("TTL", "IP", "RTT", "STANDARIZED RTT", "COUNTRY", "OUTLIERS")
 		rtts_outliers = map(lambda outlier: outlier.rtt, outliers)
 		for hop in hops:
-			print "{0:3d}\t{1}\t{2:4.14f}\t{3:4.14f}\t{4}".format(hop.ttl, hop.ip, hop.rtt, hop.standarized_rtt, "[outlier]" if(hop.rtt in rtts_outliers) else "")
+			print "{0:3d}\t{1}\t{2:4.6f}\t{3:4.6f}\t{4:20s}\t{5}".format(hop.ttl, hop.ip, hop.rtt, hop.standarized_rtt, hop.location['country'] if(hop.location) else "Undefined", "[outlier]" if(hop.rtt in rtts_outliers) else "")
