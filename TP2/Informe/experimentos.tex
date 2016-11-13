@@ -23,6 +23,7 @@ Cabe destacar que en nuestra implementación, la cantidad de paquetes a enviar p
 	\item Cálculo del tiempo del salto: Una vez seleccionada la $IP$ del salto, ya sea por haber alcanzado el destino o por habernos quedado con la que más veces respondió, debemos establecer el tiempo que implicó realizar dicho hop. Para esto, simplemente promediamos los $RTT (Round\ Trip\ Time)$ del nodo seleccionado y restamos dicho valor al $RTT$ promedio del salto anterior. Notar que esta resta podría resultar en un número negativo, en dicho caso diremos que el salto demoró 0ms dado que carecería de sentido decir que el salto se realizó en un tiempo negativo. A lo largo del trabajo analizaremos el por qué de la aparición de dichos valores.
 \end{itemize}
 
+Para esta primer sección del experimento, decidimos establecer un $TTL\_MAX$ de 30 saltos, es decir que cortaremos la ejecución si no se alcanza el destino en, a lo sumo, 30 saltos. Por otro lado, por cada iteración de los $TTL$, se decidió emitir una ráfaga de 30 paquetes.
 
 Una vez que obtuvimos el traceroute, y para poder analizar los saltos intercontinentales, desarrollamos otra herramienta llamada $outliers.py$. \\
 En la misma, tomando como input la salida de la aplicación anterior, intentamos reconocer dichos saltos aplicando el método de detección de outliers de Cimbala. 
