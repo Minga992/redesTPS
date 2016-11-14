@@ -1,3 +1,25 @@
 \section{Conlusiones}
 
-ESCRIBA AQUI SUS CONCLUSIONES
+% 1. ¿Se observaron comportamientos anómalos del tipo descripto en la bibliografía sugerida [6]?
+
+A lo largo del trabajo realizado hemos podido detectar algunas de las anomalías que presenta y explica Jobst en su paper \footnote{Traceroute Anomalies - Martin Erich Jobst}.
+A continuación mencionaremos cuales de ellas hemos podido detectar e indicaremos en que caso las hemos notado:
+
+\begin{itemize}
+	\item \textbf{Missing Hops:} En los 4 experimentos realizados pudimos notar como en algunos hops no recibíamos respuesta alguna. Por ejemplo, en todas las muestras que tenemos, entre el primer salto y el sexto, no hubo ningún nodo que nos responda. \\
+	Los factores más probables a los que puede deberse esto son básicamente que, o bien el router está configurado para no emitir respuestas a los paquetes que envíabamos (algo que hemos propuesto como hipótesis al principio de nuestro trabajo), o bien existe alguna regla de firewall que impide que la respuesta pueda llegar a nosotros.
+	
+	\item \textbf{False Round-Trip Times:} Esta anomalía entendemos que ha sido bastante frecuente en nuestros experimentos, por ejemplo en los casos en donde obteníamos que el tiempo en producirse un salto era negativo. Si bien nosotros hemos expuesto algunas hipótesis acerca del por qué de esto, en el paper analizado se plantea otra posibilidad interesante que es el hecho de haber existido rutas asimétricas.
+	
+	\item \textbf{False Links:} Si bien este caso es difícil de demostrar ya que necesitaríamos disponer de gráficos que nos muetren la topología de internet, entendemos que es algo que puede suceder con mucha frecuencia, ya que como mencionamos anteriormente en este trabajo, la ruta que generamos es tentativa, el hecho de que mostremos un salto entre un nodo A y un nodo B, no quiere decir que exista físicamente ese salto en la topología de la red.
+	
+	\item \textbf{Loops and Circles:}	Para esta anomalía, podemos poner como ejemplo el caso de los saltos correspondientes a los $TTL$ 10 y 11 en la ruta hacia la universidad de Peking, donde ambos nodos que responden no son ni más ni menos que el mismo, y eso no quiere decir que exista un salto consigo mismo. Esto puede deberse a problemas de balanceo de cargas, existencia de routers de tipo MPLS (Multiprotocol Label Switching) o, raramente, a que un router produzca un error y envíe un paquete con $TTL$ cero.
+	
+\end{itemize}
+
+
+% 2. ¿Se observaron otros comportamientos anómalos? Proponga hipótesis que permitan explicarlos.
+
+% 3. ¿Aprecia alguna diferencia en la capacidad de detectar enlaces intercontinentales según el largo de la ruta?
+
+% 4. ¿Es posible mejorar las predicciones usando un valor de corte fijo para el valor $\frac{X_i - \bar{X}}{S}$ en lugar del valor en la tabla tau?
