@@ -47,10 +47,15 @@ Se han realizado 27 saltos hasta alcanzar el destino solicitado, de los cuales e
   \label{mapa-unisa}
 \end{figure}
 
-En este contexto, nos disponemos a realizar un análisis más profundo de nuestros resultados. Podemos observar entonces, que de los cuatro saltos intercontinentales, Cimbala identifica correctamente todos, salvo el de Argentina a Italia, cuestión que podemos atribuirle a que, como muestra la figura \ref{fig:1}, el rtt de ese salto es 0. Por otro lado, 
- aunque identifica un par de saltos más, produciendo falsos positivos. Como se puede observar en la figura \ref{fig:1} los rtts correspondientes correspondientes a los saltos continentales tienen un valor claramente más elevado que el resto, con la excepción del primer salto, que tiene un rtt de 20 ms aproximadamente, numero no mayor al ttl 26 que no es un salto continental. Podríamos inferir que esta anomalía es la causante de que Cimbala identifique al ttl 26 como intercontinental cuando no lo es, pero esto
+En este contexto, nos disponemos a realizar un análisis más profundo de nuestros resultados. Podemos observar entonces, que de los cuatro saltos intercontinentales, Cimbala identifica correctamente todos, salvo el de Argentina a Italia, y a su vez, indica 6 saltos como outliers que no son intercontinentales realmente. En resumen, si contamos todo outlier como salto intercontinental, obtenemos en esta muestra:
 
-Al realizar el experimento, se logró llegar al destino en el ttl 27. De estos, 4 no respondieron. Los ttls que Cimbala reconoció como intercontinentales fueron 6, 10, 12, 15, 17, 20, 21, 22 y 26.
+\begin{itemize}
+	\item $26 \% $ de falsos positivos aprox.
+	\item $4 \%$ de falsos negativos aprox.
+	\item $70 \%$ de resultados acertados.
+\end{itemize}
+
+En principio, parecería que la estimaión de Cimbala es bastante poco precisa, pero observemos detenidamente. En la figura \ref{fig:2} , podemos apreciar que la mayoría de los puntos se sitúan un poco por encima del 0.4. Observemos entonces que Cimbala considera outlier todo  punto que se aleja de ese valor(los valores de los ttls 20 y 22 están apenas por debajo, pero por debajo al fin y al cabo). También observemos, que si nos quedamos solo con los puntos que se encuentran por encima de este valor, obtenemos exactamente los saltos intercontinentales, con excepción del de Argentina a Italia. Esto último probablemente se deba, a que, como se puede ver en la figura \ref{fig:1}, el ttl correspondiente a ese salto dá un rtt de 0.
 
 \begin{figure}[!htbp]
   \centering
@@ -59,7 +64,6 @@ Al realizar el experimento, se logró llegar al destino en el ttl 27. De estos, 
   \label{fig:1}
 \end{figure}
 
-En la figura \ref{fig:1} se puede observar como el ttl 10, 17 y 21 tienen un rtt claramente distinguido del resto.
 
 \begin{figure}[!htbp]
   \centering
@@ -68,5 +72,8 @@ En la figura \ref{fig:1} se puede observar como el ttl 10, 17 y 21 tienen un rtt
   \label{fig:2}
 \end{figure}
 
-En la figura \ref{fig:2} se puede observar una situacion similar a la de la figura \ref{fig:1}.
+
+Resumiendo, si consideramos solo los valores que en la figura \ref{fig:2} están por encima del punto de acumulaciónPONGANME UN BUEN NOMBRE, pasamos a obtener un $96\%$ de aciertos, siendo el $4\%$ restante un caso muy borde.
+
+
 
