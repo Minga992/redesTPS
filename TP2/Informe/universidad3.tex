@@ -38,6 +38,16 @@ Se han realizado 22 saltos hasta alcanzar el destino solicitado, de los cuales e
   \label{mapa-auckland}
 \end{figure}
 
+En este contexto, nos disponemos a realizar un análisis más profundo de nuestros resultados. Podemos observar entonces, que de los 3 saltos intercontinentales, Cimbala identifica correctamente todos, salvo el primer salto de Australia a EEUU, y a su vez, indica 4 saltos como outliers que no son intercontinentales realmente. En resumen, si contamos todo outlier como salto intercontinental, obtenemos en esta muestra:
+
+\begin{itemize}
+	\item $18 \% $ de falsos positivos aprox.
+	\item $4 \%$ de falsos negativos aprox.
+	\item $78 \%$ de resultados acertados.
+\end{itemize}
+
+Realizando un análisis parecido al realizado con la UNISA, podemos observar en la figura \ref{fig:8} que la mayoría de los puntos se concentran apenas encima del 0.4, y cualquier otro punto que no respete esta línea, es considerado outlier. Nuevamente observamos que si solo tomamos los puntos por encima de este valor, nos quedan los saltos intercontinentales. Esta vez, podríamos atribuir el falso negativo a que, como se observa en la figura \ref{fig:7} , el rtt correspondiente al salto es francamente muy bajo, tomando un valor por debajo de los 5 ms.
+
 ACÁ IRÍA EL CHAMUYO DE AUCKLAND
 
 \begin{figure}[!htbp]
@@ -47,8 +57,6 @@ ACÁ IRÍA EL CHAMUYO DE AUCKLAND
   \label{fig:7}
 \end{figure}
 
-En la figura \ref{fig:7} se puede observar como el ttl 10 y 19 tienen un rtt claramente distinguido del resto.
-
 \begin{figure}[!htbp]
   \centering
     \includegraphics[scale=0.6]{imagenes/auckland-graficos/traceroute-auckland-standarized.jpg}
@@ -56,6 +64,6 @@ En la figura \ref{fig:7} se puede observar como el ttl 10 y 19 tienen un rtt cla
   \label{fig:8}
 \end{figure}
 
-En la figura \ref{fig:8} se puede observar una situacion similar a la de la figura \ref{fig:7}.
 
+Resumiendo, si consideramos solo los valores que en la figura \ref{fig:8} que están por encima del punto de acumulaciónPONGANME UN BUEN NOMBRE, pasamos a obtener un $96\%$ de aciertos, siendo el $4\%$ restante un caso muy curioso.
 
