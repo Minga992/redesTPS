@@ -52,10 +52,10 @@ En este contexto, nos disponemos a realizar un análisis más profundo de nuestr
 \begin{itemize}
 	\item $26 \% $ de falsos positivos aprox.
 	\item $4 \%$ de falsos negativos aprox.
-	\item $70 \%$ de resultados acertados.
+	\item $70 \%$ de resultados acertados aprox.
 \end{itemize}
 
-En principio, parecería que la estimaión de Cimbala es bastante poco precisa, pero observemos detenidamente. En la figura \ref{fig:2} , podemos apreciar que la mayoría de los puntos se sitúan un poco por encima del 0.4. Observemos entonces que Cimbala considera outlier todo  punto que se aleja de ese valor(los valores de los ttls 20 y 22 están apenas por debajo, pero por debajo al fin y al cabo). También observemos, que si nos quedamos solo con los puntos que se encuentran por encima de este valor, obtenemos exactamente los saltos intercontinentales, con excepción del de Argentina a Italia. Esto último probablemente se deba, a que, como se puede ver en la figura \ref{fig:1}, el ttl correspondiente a ese salto dá un rtt de 0.
+Realizando un análisis parecido al de Oxford, en la figura \ref{fig:2} , podemos apreciar que la mayoría de los puntos se sitúan un poco por encima del 0.4 y cualquier otro punto que no respete esta línea, es considerado outlier( inclusive los valores de los ttls 20 y 22 están apenas por debajo, pero por debajo al fin y al cabo). Nuevamente observemos, que si nos quedamos solo con los puntos que se encuentran por encima de este valor, obtenemos exactamente los saltos intercontinentales, con excepción del de Argentina a Italia. Esto último probablemente se deba, a que, como se puede ver en la figura \ref{fig:1}, el ttl correspondiente a ese salto dá un rtt de 0.
 
 \begin{figure}[!htbp]
   \centering
