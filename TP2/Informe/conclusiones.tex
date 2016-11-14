@@ -3,11 +3,11 @@
 % 1. ¿Se observaron comportamientos anómalos del tipo descripto en la bibliografía sugerida [6]?
 
 A lo largo del trabajo realizado hemos podido detectar algunas de las anomalías que presenta y explica Jobst en su paper \footnote{Traceroute Anomalies - Martin Erich Jobst}.
-A continuación mencionaremos cuales de ellas hemos podido detectar e indicaremos en que caso las hemos notado:
+A continuación mencionaremos cuáles de ellas hemos podido detectar e indicaremos en qué caso las hemos notado:
 
 \begin{itemize}
 	\item \textbf{Missing Hops:} En los 4 experimentos realizados pudimos notar como en algunos hops no recibíamos respuesta alguna. Por ejemplo, en todas las muestras que tenemos, entre el primer salto y el sexto, no hubo ningún nodo que nos responda. \\
-	Los factores más probables a los que puede deberse esto son básicamente que, o bien el router está configurado para no emitir respuestas a los paquetes que envíabamos (algo que hemos propuesto como hipótesis al principio de nuestro trabajo), o bien existe alguna regla de firewall que impide que la respuesta pueda llegar a nosotros.
+	Los factores más probables a los que puede deberse esto son básicamente que, o bien el router está configurado para no emitir respuestas a los paquetes que enviábamos (algo que hemos propuesto como hipótesis al principio de nuestro trabajo), o bien existe alguna regla de firewall que impide que la respuesta pueda llegar a nosotros.
 	
 	\item \textbf{False Round-Trip Times:} Esta anomalía entendemos que ha sido bastante frecuente en nuestros experimentos, por ejemplo en los casos en donde obteníamos que el tiempo en producirse un salto era negativo. Si bien nosotros hemos expuesto algunas hipótesis acerca del por qué de esto, en el paper analizado se plantea otra posibilidad interesante que es el hecho de haber existido rutas asimétricas.
 	
@@ -17,9 +17,9 @@ A continuación mencionaremos cuales de ellas hemos podido detectar e indicaremo
 	
 \end{itemize}
 
-Por otro lado, encontramos una forma de utilizar Cimbala con resultados muy satisfactorios (eliminando 0s, y quedandonos con los outliers detectados por encima del valor de corte), obteniendo aciertos por encima del $96 \%$ en todos los experimentos, sin importar el largo de la ruta. También cabe notar, que el resultado de $\frac{X_i - \bar{X}}{S}$, siempre dió numeros muy cercanos al 0.4, excepto en los outliers, por lo cual nos preguntamos que sucedería si tomamos el 0.4 como valor a comparar, en vez de usar las tablas de thompson, pregunta que quedará para futuros trabajos.
+Por otro lado, encontramos una forma de utilizar Cimbala con resultados muy satisfactorios (eliminando 0s, y quedándonos con los outliers detectados por encima del valor de corte), obteniendo aciertos por encima del $96 \%$ en todos los experimentos, sin importar el largo de la ruta. También cabe notar, que el resultado de $\frac{X_i - \bar{X}}{S}$, siempre dió números muy cercanos al 0.4, excepto en los outliers, por lo cual nos preguntamos qué sucedería si tomáramos el 0.4 como valor a comparar, en vez de usar las tablas de thompson, pregunta que quedará para futuros trabajos.
 
-Finalizando el presente trabajo, creemos que los objetivos que nos motivaron a realizarlo se han cumplido, habiendo podido experimentar con las redes en internet, pudiendo observar escenarios extraños, y otros no tantos, embebiendonos en la realización de un código que en principio no entendíamos, pero que al pasar los días fue cobrando mayor significado, hasta el punto de poder dar incluso una configuración personal para la estrategia de Cimbala. El único objetivo faltante, es la aprobación.
+Finalizando el presente trabajo, creemos que los objetivos que nos motivaron a realizarlo se han cumplido, habiendo podido experimentar con las redes en internet, pudiendo observar escenarios extraños, y otros no tantos, embebiéndonos en la realización de un código que en principio no entendíamos, pero que al pasar los días fue cobrando mayor significado, hasta el punto de poder dar incluso una configuración personal para la estrategia de Cimbala. El único objetivo faltante, es la aprobación.
 % 2. ¿Se observaron otros comportamientos anómalos? Proponga hipótesis que permitan explicarlos.
 
 % 3. ¿Aprecia alguna diferencia en la capacidad de detectar enlaces intercontinentales según el largo de la ruta?

@@ -1,6 +1,6 @@
 \subsection{Peking}
 
-Comencemos por describir la ruta generada(Ver mapa que todavía no está). Se han realizado 29 saltos hasta alcanzar el destino solicitado, de los cuales, aproximadamente en el $86 \% $ de los mismos, hemos obtenido respuestas del tipo $TIME\_EXCEEDED$, determinando así, que el largo de nuestra ruta es de 25 saltos, y que del resto de los valores del $TTL$ no hemos obtenido respuesta alguna. Como también se puede ver en el (mapa que no está), durante el trayecto se realizaron 3 saltos intercontinentales, correspondientes a los hops 9, 10 Y 20.
+Comencemos por describir la ruta generada: Se han realizado 29 saltos hasta alcanzar el destino solicitado, de los cuales, aproximadamente en el $86 \% $ de los mismos, hemos obtenido respuestas del tipo $TIME\_EXCEEDED$, determinando así, que el largo de nuestra ruta es de 25 saltos, y que del resto de los valores del $TTL$ no hemos obtenido respuesta alguna. Como también se puede ver en la figura \ref{mapa-peking}, durante el trayecto se realizaron 3 saltos intercontinentales, correspondientes a los hops 9, 10 Y 20.
 
 % MAPAS ACA
 
@@ -43,6 +43,13 @@ Analicemos ahora los outliers detectados por Cimbala y contrastemos los datos co
 
 
 Como se puede observar en la tabla \ref{traceroute-peking}, el método propuesto por Cimbala ha determinado que existen 7 saltos cuyos tiempos son outliers. Como hemos mencionado previamente, tan solo se han producido 3 saltos entre continentes, dos de los cuales se han detectado correctamente, mientras que el noveno salto, entre Argentina e Italia, no ha sido identificado. Por lo tanto, podemos afirmar que el método ha presentado 5 casos de falsos positivos, es decir, casos que señaló como saltos intercontnentales y no lo eran, y un caso de falso negativo, donde no ha determinado que un salto sea entre continentes cuando si lo fue.
+
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[scale=0.6]{imagenes/peking-graficos/mapa-peking.png}
+  \caption{Peking - Hops}
+  \label{mapa-peking}
+\end{figure}
 
 En cuanto al caso del falso negativo, es decir el salto entre Argentina e Italia, esto se debe a que el tiempo para ese hop, como se puede ver en la figura \ref{fig:10}, fue 0, con lo cual, el mismo pudo haber sido efectivamente 0 o más bien un valor negativo que hemos reemplazado con un cero. Este valor, que ya lo hemos visto en el experimento de otra universidad, puede deberse a algunos de los factores que hemos planteado al principio del presente documento en donde indicamos algunas hipótesis del por qué de tiempos negativos. \\
 Más allá de eso, cabe mencionar que, si el tiempo que se corresponde con el salto es nulo, y que para la aplicación del método de Cimbala hemos decidido no contemplar los ceros, es claro que jamás lo iba a poder detectar como un outlier. Simplemente en esta ocasión el problema radicó en haber obtenido un tiempo negativo para dicho hop.

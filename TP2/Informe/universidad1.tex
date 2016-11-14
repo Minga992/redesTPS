@@ -31,7 +31,7 @@ En la tabla \ref{traceroute-oxford-con-ceros} podemos observar el traceroute gen
 
 Comencemos por describir la ruta generada:
 
-Se han realizado 21 saltos hasta alcanzar el destino solicitado, de los cuales en $2/3$ de los mismos hemos obtenido respuestas del tipo $TIME\_EXCEEDED$, determinando así que el largo de nuestra ruta es de 14 saltos, y que para el tercio restante de valores del $TTL$ no hemos obtenido respuesta alguna. Como también se puede ver en la figura (pONE MAPA PUTO), y en el cuadro \ref{traceroute-oxford-con-ceros}, durante el trayecto se realizaron 3 saltos intercontinentales.
+Se han realizado 21 saltos hasta alcanzar el destino solicitado, de los cuales en $2/3$ de los mismos hemos obtenido respuestas del tipo $TIME\_EXCEEDED$, determinando así que el largo de nuestra ruta es de 14 saltos, y que para el tercio restante de valores del $TTL$ no hemos obtenido respuesta alguna. Como también se puede ver en la figura \ref{mapa-oxford}, y en el cuadro \ref{traceroute-oxford-con-ceros}, durante el trayecto se realizaron 3 saltos intercontinentales.
 
 Realicemos ahora un análisis más profundo sobre los resultados obtenidos.
 
@@ -81,6 +81,12 @@ Veamos en \ref{traceroute-oxford} como resultó nuestra ruta sin contemplar los 
 \end{tabular}
 \end{table}
 
+\begin{figure}[!htbp]
+  \centering
+    \includegraphics[scale=0.8]{imagenes/oxford-graficos/mapa-oxford.png}
+  \caption{Oxford - Hops}
+  \label{mapa-oxford}
+\end{figure}
 
 Como podemos observar, ahora la detección de outliers nos permite realizar un mejor análisis de la situación, y por lo tanto, este razonamiento será utilizado en los próximos experimentos. Sobre 14 saltos, hemos identificado 6 saltos como outliers de los cuales solo 2 de ellos se corresponden a saltos intercontinentales, por lo tanto podríamos afirmar que los 4 restantes son falsos positivos, mientras que no se presentan casos donde se haya producido un salto entre continentes y el método no lo haya podido detectar, es decir, no tenemos casos de falsos negativos. Resumiendo, obtuvimos:
 
@@ -105,7 +111,7 @@ Claramente para los saltos correspondientes a los $TTLs$ 10 y 13 notamos valores
 En cuanto a los otros outliers detectados, los que se corresponden con los $TTLs$ 6, 14, 20 y 21, podemos ver como sus valores están por encima del resto, pero no de un modo tan tajante como en los casos mencionados previamente. Estos hops no solo no se corresponden a saltos entre continentes sino que han sido dentro del mismo país cada uno de ellos.
 
 
-En la figura \ref{tiempos-oxford-estandarizados} decidimos reflejar los tiempos de los saltos de acuerdo a lo que propone el método de Cimbala, es decir, para cada $TTL$ tomamos $\frac{X_i - \bar{X}}{S}$, y ahora veremos la importancia de este. Por lo dicho hasta ahora, parecería que la estimaión de Cimbala es bastante poco precisa, pero observemos detenidamente esta figura. En esta, podemos apreciar que la mayoría de los puntos se sitúan un poco por encima del 0.4. Observemos entonces que Cimbala considera outlier todo  punto que se aleja de ese valor. También observemos, que si nos quedamos solo con los puntos que se encuentran por encima de este valor, obtenemos exactamente los saltos intercontinentales.
+En la figura \ref{tiempos-oxford-estandarizados} decidimos reflejar los tiempos de los saltos de acuerdo a lo que propone el método de Cimbala, es decir, para cada $TTL$ tomamos $\frac{X_i - \bar{X}}{S}$, y ahora veremos la importancia de este. Por lo dicho hasta ahora, parecería que la estimación de Cimbala es bastante poco precisa, pero observemos detenidamente esta figura. En esta, podemos apreciar que la mayoría de los puntos se sitúan un poco por encima del 0.4. Observemos entonces que Cimbala considera outlier todo  punto que se aleja de ese valor. También observemos, que si nos quedamos solo con los puntos que se encuentran por encima de este valor, obtenemos exactamente los saltos intercontinentales.
 
 
 \begin{figure}[!htbp]
